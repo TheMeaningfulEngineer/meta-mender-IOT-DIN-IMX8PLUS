@@ -1,0 +1,10 @@
+# Mender defined requirements
+# ToDo (check vs template local.conf)
+
+INHERIT += "mender-full"
+MENDER_ARTIFACT_NAME = "release-1"
+
+MENDER_FEATURES_ENABLE:append = " mender-uboot"
+MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi"
+
+PREFERRED_PROVIDER_u-boot = "u-boot-compulab"

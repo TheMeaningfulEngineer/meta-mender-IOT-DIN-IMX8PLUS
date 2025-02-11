@@ -1,0 +1,37 @@
+From bc154a521a4749a799c3db3b4b5f45e7e5b4bd24 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Esteban=20Ag=C3=BCero=20P=C3=A9rez?=
+ <esteban.aguero@northern.tech>
+Date: Thu, 6 Feb 2025 12:44:28 -0600
+Subject: [PATCH 1/1] uboot cmds modifications to use Mender variables
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Esteban Agüero Pérez <esteban.aguero@northern.tech>
+---
+ include/configs/compulab-imx8m-plus.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/include/configs/compulab-imx8m-plus.h b/include/configs/compulab-imx8m-plus.h
+index 8f2c8d7ba9..ec8f34ead0 100644
+--- a/include/configs/compulab-imx8m-plus.h
++++ b/include/configs/compulab-imx8m-plus.h
+@@ -74,13 +74,14 @@
+ 	"mmcpart=" __stringify(CONFIG_SYS_MMC_IMG_LOAD_PART) "\0" \
+ 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
+ 	"mmcautodetect=yes\0" \
+-	"mmcargs=setenv bootargs console=${console} root=${mmcroot}\0 " \
++	"mmcargs=setenv bootargs console=${console} root=${mender_boot_part_name}\0 " \
+ 	"loadbootscript=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${bsp_script};\0" \
+ 	"bootscript=echo Running bootscript from mmc ...; " \
+ 		"source\0" \
+ 	"loadimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
+ 	"loadfdt=load mmc ${mmcdev}:${mmcpart} ${fdt_addr_r} ${fdtfile}\0" \
+ 	"mmcboot=echo Booting from mmc ...; " \
++		"run mender_setup; " \
+ 		"run mmcargs; " \
+ 		"if test ${boot_fit} = yes || test ${boot_fit} = try; then " \
+ 			"bootm ${loadaddr}; " \
+-- 
+2.34.1
+
