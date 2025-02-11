@@ -1,4 +1,4 @@
-From bc154a521a4749a799c3db3b4b5f45e7e5b4bd24 Mon Sep 17 00:00:00 2001
+From 4971ff3ff21ee540425f2b70b500810c0064d98c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Esteban=20Ag=C3=BCero=20P=C3=A9rez?=
  <esteban.aguero@northern.tech>
 Date: Thu, 6 Feb 2025 12:44:28 -0600
@@ -9,29 +9,24 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Esteban Agüero Pérez <esteban.aguero@northern.tech>
 ---
- include/configs/compulab-imx8m-plus.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/configs/compulab-imx8m-plus.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/include/configs/compulab-imx8m-plus.h b/include/configs/compulab-imx8m-plus.h
-index 8f2c8d7ba9..ec8f34ead0 100644
+index 8f2c8d7ba9..8e17f72719 100644
 --- a/include/configs/compulab-imx8m-plus.h
 +++ b/include/configs/compulab-imx8m-plus.h
-@@ -74,13 +74,14 @@
- 	"mmcpart=" __stringify(CONFIG_SYS_MMC_IMG_LOAD_PART) "\0" \
- 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
- 	"mmcautodetect=yes\0" \
--	"mmcargs=setenv bootargs console=${console} root=${mmcroot}\0 " \
-+	"mmcargs=setenv bootargs console=${console} root=${mender_boot_part_name}\0 " \
- 	"loadbootscript=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${bsp_script};\0" \
- 	"bootscript=echo Running bootscript from mmc ...; " \
- 		"source\0" \
- 	"loadimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
- 	"loadfdt=load mmc ${mmcdev}:${mmcpart} ${fdt_addr_r} ${fdtfile}\0" \
- 	"mmcboot=echo Booting from mmc ...; " \
-+		"run mender_setup; " \
- 		"run mmcargs; " \
- 		"if test ${boot_fit} = yes || test ${boot_fit} = try; then " \
- 			"bootm ${loadaddr}; " \
+@@ -117,8 +117,8 @@
+ 		"usb_dev=0\0" \
+ 		"boot_part=1\0" \
+ 		"root_opt=rootwait rw\0" \
+-		"emmc_ul=setenv iface mmc; setenv dev ${emmc_dev}; setenv part ${boot_part};" \
+-		"setenv bootargs console=${console} root=${emmc_root} ${root_opt};\0" \
++		"emmc_ul=run mender_setup; setenv iface mmc; setenv dev ${emmc_dev}; setenv part ${boot_part};" \
++		"setenv bootargs console=${console} root=${mender_boot_part_name} ${root_opt};\0" \
+ 		"sd_ul=setenv iface mmc; setenv dev ${sd_dev}; setenv part ${boot_part};" \
+ 			"setenv bootargs console=${console} root=${sd_root} ${root_opt};\0" \
+ 		"usb_ul=usb start; setenv iface usb; setenv dev ${usb_dev}; setenv part ${boot_part};" \
 -- 
 2.34.1
 
