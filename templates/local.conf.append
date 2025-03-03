@@ -8,3 +8,13 @@ MENDER_FEATURES_ENABLE:append = " mender-uboot"
 MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi"
 
 PREFERRED_PROVIDER_u-boot = "u-boot-compulab"
+
+MENDER_UBOOT_POST_SETUP_COMMANDS='echo "[mender] overriding default locations for kernel and device tree"; setenv image boot/Image; setenv emmc_dev \${mender_uboot_dev}; setenv boot_part \${mender_boot_part}; setenv fdtfile boot/iotdin-imx8p.dtb'
+
+MENDER_STORAGE_DEVICE:iotdin-imx8p = "/dev/mmcblk2"
+
+# This is set just to have prevent errors
+# But for just building the bootloader it's not needed
+MENDER_BOOT_PART_SIZE_MB:iotdin-imx8p = "64"
+MENDER_STORAGE_TOTAL_SIZE_MB:iotdin-imx8p = "1024"
+MENDER_DATA_PART_SIZE_MB:iotdin-imx8p = "256"
